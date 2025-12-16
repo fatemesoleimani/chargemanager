@@ -11,7 +11,7 @@ class WalletService:
     def deposit(wallet, amount):
         wallet.balance += amount
         wallet.save(update_fields=["balance"])
-        Transaction.objects.create(wallet=wallet, amount=amount, type=TransactionTypeChoices.deposit, )
+        Transaction.objects.create(wallet=wallet, amount=amount, type=TransactionTypeChoices.deposit)
 
     @staticmethod
     @transaction.atomic
