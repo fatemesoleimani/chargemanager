@@ -27,5 +27,6 @@ urlpatterns = [
 
     path("api/v1/user/", include("apps.user.urls")),
     path("api/v1/admin/", include("apps.manager_admin.urls")),
+    path("api/v1/finance/", include("apps.finance.urls")),
 
 ]
