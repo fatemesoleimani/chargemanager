@@ -1,6 +1,7 @@
 from django.db import transaction
 
 from apps.finance.choices import TransactionTypeChoices
+from apps.finance.exceptions import InsufficientBalanceException
 from apps.finance.models import Transaction
 
 
@@ -17,8 +18,7 @@ class WalletService:
     @transaction.atomic
     def withdraw(wallet, amount, reference):
         if wallet.balance < amount:
-            raise ValueError("Insufficient balance")
-
+            raise InsufficientBalanceException()
         wallet.balance -= amount
         wallet.save(update_fields=["balance"])
         Transaction.objects.create(wallet=wallet, amount=amount, type=TransactionTypeChoices.withdraw,

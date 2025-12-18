@@ -21,23 +21,6 @@ class SellerPhoneChargeView(APIView):
     def post(self, request):
         serializer = SellerPhoneChargeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        phone_number = serializer.validated_data["phone_number"]
-        amount = serializer.validated_data["amount"]
-
-        try:
-            WalletService.withdraw(
-                wallet=request.user.wallet,
-                amount=amount,
-                reference=phone_number,
-            )
-        except ValueError:
-            return Response(
-                {"detail": "Insufficient balance."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        return Response(
-            {"detail": "Phone charged successfully."},
-            status=status.HTTP_200_OK
-        )
+        WalletService.withdraw(wallet=request.user.wallet, amount=serializer.validated_data["amount"],
+                               reference=serializer.validated_data["phone_number"])
+        return Response({"detail": "Phone charged successfully."}, status=status.HTTP_200_OK)
