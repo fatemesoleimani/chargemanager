@@ -10,6 +10,5 @@ class ChargeRequestViewSet(ModelViewSet):
     permission_classes = [IsSeller]
     http_method_names = ["get", "post"]
 
-
     def get_queryset(self):
         return ChargeRequest.objects.filter(user=self.request.user).order_by("-created_at")
