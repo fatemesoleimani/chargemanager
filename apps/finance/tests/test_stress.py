@@ -38,7 +38,7 @@ class TestSellerPhoneChargeConcurrency(TransactionTestCase):
 
     def test_parallel_withdrawals(self):
         results = {}
-        count_thread = 190
+        count_thread = 200
 
         with ThreadPoolExecutor(max_workers=50) as executor:
             futures = [
