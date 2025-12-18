@@ -21,6 +21,6 @@ class SellerPhoneChargeView(APIView):
     def post(self, request):
         serializer = SellerPhoneChargeSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        WalletService.withdraw(wallet=request.user.wallet, amount=serializer.validated_data["amount"],
+        WalletService.withdraw(wallet_id=request.user.wallet.id, amount=serializer.validated_data["amount"],
                                reference=serializer.validated_data["phone_number"])
         return Response({"detail": "Phone charged successfully."}, status=status.HTTP_200_OK)
