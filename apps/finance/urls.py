@@ -9,7 +9,7 @@ router = DefaultRouter()
 router.register("charge_requests", ChargeRequestViewSet, basename="seller-charge-request")
 
 urlpatterns = [
-    path("transaction", TransactionListView.as_view()),
+    path("transaction", TransactionListView.as_view(),name="transaction-list"),
     path("charge_phone", SellerPhoneChargeView.as_view()),
 ]
 
