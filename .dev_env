@@ -1,0 +1,9 @@
+DB_NAME=charge_manager
+DB_USER=postgres
+DB_PASSWORD=123a123A
+DB_HOST=charge_db
+DB_PORT=5432
+
+
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=123a123A@

@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  charge_db:
+    image: postgres:15
+    container_name: postgres_charge_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5455:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - charge_manger_network
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django_charge_app
+    restart: always
+    env_file: .dev_env
+    depends_on:
+      - charge_db
+    ports:
+      - "8000:8000"
+    networks:
+      - charge_manger_network
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        python manage.py createadmin &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+
+volumes:
+  postgres_data:
+
+networks:
+  charge_manger_network:
+    driver: bridge
