@@ -10,10 +10,20 @@ router = DefaultRouter()
 router.register("users", UserViewSet, basename="admin-users")
 
 urlpatterns = [
-    path("charge_requests/", AdminChargeRequestListView.as_view()),
-    path("charge_requests/<int:pk>/action/", AdminChargeRequestActionView.as_view()),
-    path("transaction", AdminTransactionListView.as_view())
-
+    path(
+        "charge_requests/",
+        AdminChargeRequestListView.as_view(),
+        name="admin-charge-request-list",
+    ),
+    path(
+        "charge_requests/<int:pk>/action/",
+        AdminChargeRequestActionView.as_view(),
+        name="admin-charge-request-action",
+    ),
+    path(
+        "transaction",
+        AdminTransactionListView.as_view(),
+        name="admin-transaction-list",
+    ),
 ]
-
 urlpatterns += router.urls
